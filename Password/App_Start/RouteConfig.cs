@@ -1,7 +1,8 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Password.UI.Controllers;
 
-namespace Password
+namespace Password.UI
 {
     public class RouteConfig
     {

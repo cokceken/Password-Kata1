@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Password
+namespace Password.UI
 {
     public class FilterConfig
     {

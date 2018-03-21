@@ -1,0 +1,5 @@
+C:\Users\s.cokceken\Desktop\cokceken\Katas\Password\Domain\bin\Debug\Password.Domain.dll
+C:\Users\s.cokceken\Desktop\cokceken\Katas\Password\Domain\bin\Debug\Password.Domain.pdb
+C:\Users\s.cokceken\Desktop\cokceken\Katas\Password\Domain\obj\Debug\Password.Domain.dll
+C:\Users\s.cokceken\Desktop\cokceken\Katas\Password\Domain\obj\Debug\Password.Domain.pdb
+C:\Users\s.cokceken\Desktop\cokceken\Katas\Password\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache

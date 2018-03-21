@@ -1,0 +1,36 @@
+﻿@model Password.UI.Models.ForgotPasswordModel
+
+@{
+    ViewBag.Title = "Forgot Password";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model?.IsSuccessfulMail != null)
+{
+    if (Model.IsSuccessfulMail.Value)
+    {
+        <h1>Successful Email</h1>
+    }
+    else
+    {
+        <h1>Unsuccessful Email</h1>
+    }
+}
+
+@using (Html.BeginForm("SendResetEmail", "ForgotPassword"))
+{
+    <fieldset>
+        <legend>Forgot password</legend>
+        <div>
+            @Html.LabelFor(x => x.Email)
+        </div>
+        <div>
+            @Html.EditorFor(x => x.Email)
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+
+        <p>
+            <input type="submit" value="Send reset email" />
+        </p>
+    </fieldset>
+}

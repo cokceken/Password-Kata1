@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace Password
+namespace Password.UI
 {
     public class BundleConfig
     {
