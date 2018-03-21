@@ -154,7 +154,7 @@ namespace Password.Tests.Application
 
             mockTokenCreator.Setup(x => x.CreateToken(It.Is<int>(i => i == 1))).Returns(new PasswordToken()
             {
-                UserId = 1,
+                UserCredential = new UserCredential() {Id = 1},
                 ExpireDateTime = DateTime.MaxValue,
                 Id = 1,
                 Token = "token"
@@ -225,7 +225,7 @@ namespace Password.Tests.Application
             mockTokenDataService.Setup(x => x.GetPasswordToken(It.Is<string>(s => s.Equals("token")))).Returns(
                 new PasswordToken()
                 {
-                    UserId = 1,
+                    UserCredential = new UserCredential() { Id = 1 },
                     Token = "token",
                     Id = 1,
                     ExpireDateTime = DateTime.MaxValue
@@ -273,7 +273,7 @@ namespace Password.Tests.Application
             mockTokenDataService.Setup(x => x.GetPasswordToken(It.Is<string>(s => s.Equals("token")))).Returns(
                 new PasswordToken()
                 {
-                    UserId = 1,
+                    UserCredential = new UserCredential() { Id = 1 },
                     Token = "token",
                     Id = 1,
                     ExpireDateTime = DateTime.MinValue
@@ -321,7 +321,7 @@ namespace Password.Tests.Application
             mockTokenDataService.Setup(x => x.GetPasswordToken(It.Is<string>(s => s.Equals("token")))).Returns(
                 new PasswordToken()
                 {
-                    UserId = 2,
+                    UserCredential = new UserCredential() { Id = 2 },
                     Token = "token",
                     Id = 1,
                     ExpireDateTime = DateTime.MaxValue
