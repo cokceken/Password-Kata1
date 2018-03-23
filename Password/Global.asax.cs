@@ -17,6 +17,7 @@ namespace Password.UI
             //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
 
             IocContainer.Setup();
+            //GlobalFilters.Filters.Add(new ExceptionHandler(DependencyResolver.Current.GetService<ILogger>()));
         }
     }
 }

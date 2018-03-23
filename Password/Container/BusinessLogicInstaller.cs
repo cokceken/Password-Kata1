@@ -1,12 +1,15 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using Password.Application;
-using Password.Infrastructure.Contract;
+using Password.Domain.Contract;
+using Password.Domain.Contract.AuthenticationContract;
+using Password.Domain.Contract.RepositoryContract;
+using Password.Domain.Contract.TokenContract;
+using Password.Domain.Contract.UserContract;
+using Password.Domain.Service;
 using Password.Infrastructure.Services;
 using Password.Infrastructure.Services.Data;
 using Password.Infrastructure.Services.Dummy;
-using Password.Repository.Contract;
 using Password.Repository.Repository;
 
 namespace Password.UI.Container
@@ -15,15 +18,32 @@ namespace Password.UI.Container
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(Component.For<IPasswordTokenRepository>().ImplementedBy<PasswordTokenRepository>());
-            container.Register(Component.For<IUserCredentialRepository>().ImplementedBy<UserCredentialRepository>());
-            container.Register(Component.For<IEmailService>().ImplementedBy<DummyEmailService>());
-            container.Register(Component.For<IHashService>().ImplementedBy<DummyHashService>());
-            container.Register(Component.For<IPasswordHashService>().ImplementedBy<PasswordHashService>());
-            container.Register(Component.For<ITokenCreator>().ImplementedBy<TokenCreator>());
+            InstallDomain(container, store);
+            InstallInfrastructure(container, store);
+            InstallRepository(container, store);
+        }
+
+        private void InstallDomain(IWindsorContainer container, IConfigurationStore store)
+        {
+            container.Register(Component.For<IUserService>().ImplementedBy<UserService>());
+            container.Register(Component.For<ITokenService>().ImplementedBy<TokenService>());
+            container.Register(Component.For<IAuthenticationService>().ImplementedBy<AuthenticationService>());
+        }
+
+        private void InstallInfrastructure(IWindsorContainer container, IConfigurationStore store)
+        {
+            container.Register(Component.For<IEmailService>().ImplementedBy<DummyEmailService>().LifeStyle.Singleton);
+            container.Register(Component.For<IHashService>().ImplementedBy<HashService>().LifeStyle.Singleton);
+            container.Register(Component.For<ITokenGenerator>().ImplementedBy<TokenGenerator>().LifeStyle.Singleton);
             container.Register(Component.For<ITokenDataService>().ImplementedBy<TokenDataService>());
-            container.Register(Component.For<IUserCredentialDataService>().ImplementedBy<UserCredentialDataService>());
-            container.Register(Component.For<IPasswordService>().ImplementedBy<PasswordService>());
+            container.Register(Component.For<IUserDataService>().ImplementedBy<UserDataService>());
+            container.Register(Component.For<ILogger>().ImplementedBy<Log4Net>().LifeStyle.Singleton);
+        }
+
+        private void InstallRepository(IWindsorContainer container, IConfigurationStore store)
+        {
+            container.Register(Component.For<ITokenRepository>().ImplementedBy<TokenRepository>());
+            container.Register(Component.For<IUserRepository>().ImplementedBy<UserRepository>());
         }
     }
 }

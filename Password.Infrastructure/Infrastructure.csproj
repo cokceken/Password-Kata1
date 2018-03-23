@@ -45,20 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contract\ITokenCreator.cs" />
-    <Compile Include="Contract\ITokenDataService.cs" />
+    <Compile Include="Services\Log4Net.cs" />
     <Compile Include="Services\Dummy\DummyEmailService.cs" />
     <Compile Include="Services\Dummy\DummyHashService.cs" />
     <Compile Include="Services\Data\TokenDataService.cs" />
-    <Compile Include="Services\TokenCreator.cs" />
+    <Compile Include="Services\TokenGenerator.cs" />
     <Compile Include="Services\EmailService.cs" />
-    <Compile Include="Contract\IEmailService.cs" />
     <Compile Include="Services\HashService.cs" />
-    <Compile Include="Contract\IHashService.cs" />
-    <Compile Include="Contract\IPasswordHashService.cs" />
-    <Compile Include="Contract\IUserCredentialDataService.cs" />
-    <Compile Include="Services\PasswordHashService.cs" />
-    <Compile Include="Services\Data\UserCredentialDataService.cs" />
+    <Compile Include="Services\Data\UserDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

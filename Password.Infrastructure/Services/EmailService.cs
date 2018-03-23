@@ -1,4 +1,4 @@
-﻿using Password.Infrastructure.Contract;
+﻿using Password.Domain.Contract;
 
 namespace Password.Infrastructure.Services
 {

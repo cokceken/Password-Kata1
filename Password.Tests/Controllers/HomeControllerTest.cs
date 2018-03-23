@@ -1,6 +1,4 @@
-﻿using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Password.UI.Controllers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Password.Tests.Controllers
 {

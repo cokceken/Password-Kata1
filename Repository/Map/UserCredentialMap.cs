@@ -3,7 +3,7 @@ using Password.Domain.Model;
 
 namespace Password.Repository.Map
 {
-    public class UserCredentialMap : ClassMap<UserCredential>
+    public class UserCredentialMap : ClassMap<User>
     {
         public UserCredentialMap()
         {
@@ -14,7 +14,7 @@ namespace Password.Repository.Map
             Map(x => x.Username);
             Map(x => x.PasswordSalt);
 
-            Table("UserCredential");
+            Table("User");
         }
     }
 }

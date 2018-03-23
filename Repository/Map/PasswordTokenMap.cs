@@ -3,17 +3,17 @@ using Password.Domain.Model;
 
 namespace Password.Repository.Map
 {
-    public class PasswordTokenMap : ClassMap<PasswordToken>
+    public class PasswordTokenMap : ClassMap<Token>
     {
         public PasswordTokenMap()
         {
             Id(x => x.Id);
 
-            References(x => x.UserCredential).Column("UserCredential_id");
+            References(x => x.User).Column("UserCredential_id");
             Map(x => x.ExpireDateTime);
-            Map(x => x.Token);
+            Map(x => x.Value);
 
-            Table("PasswordToken");
+            Table("Token");
         }
     }
 }

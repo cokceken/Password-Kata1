@@ -68,17 +68,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contract\IRepository.cs" />
-    <Compile Include="Contract\IUSerCredentialRepository.cs" />
     <Compile Include="Map\PasswordTokenMap.cs" />
     <Compile Include="Map\UserCredentialMap.cs" />
     <Compile Include="NHibernate\NhibernateSessionFactory.cs" />
     <Compile Include="NHibernate\NhibernateHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Contract\IPasswordTokenRepository.cs" />
-    <Compile Include="Repository\PasswordTokenRepository.cs" />
+    <Compile Include="Repository\TokenRepository.cs" />
     <Compile Include="Repository\Repository.cs" />
-    <Compile Include="Repository\UserCredentialRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

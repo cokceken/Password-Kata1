@@ -1,12 +1,12 @@
-﻿using Password.Infrastructure.Contract;
+﻿using Password.Domain.Contract;
 
 namespace Password.Infrastructure.Services
 {
     public class HashService : IHashService
     {
-        public string HashPassword(string password)
+        public string Hash(string value)
         {
-            throw new System.NotImplementedException();
+            return value;
         }
     }
 }

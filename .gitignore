@@ -18,3 +18,11 @@ Password/obj/
 \.vs/
 
 packages/
+
+Domain/bin/
+
+Domain/obj/
+
+Repository/bin/
+
+Repository/obj/

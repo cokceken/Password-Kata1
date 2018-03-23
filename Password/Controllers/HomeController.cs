@@ -1,17 +1,18 @@
 ﻿using System.Web.Mvc;
-using Password.Application;
-using Password.Application.DTO.Request;
+using Password.Domain.Contract.AuthenticationContract;
 using Password.UI.Models;
 
 namespace Password.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IPasswordService _passwordService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public HomeController(IPasswordService passwordService)
+        public HomeController(IAuthenticationService authenticationService)
         {
-            _passwordService = passwordService;
+            ViewBag.Message = "Home Page";
+
+            _authenticationService = authenticationService;
         }
 
         public ActionResult Index()
@@ -21,23 +22,14 @@ namespace Password.UI.Controllers
 
         public ActionResult ChangePassword(string token, int userId)
         {
-            ViewBag.Message = "Change Password Page";
-
             return View();
         }
 
         [HttpPost]
         public ActionResult Login(UserCredentialModel model)
         {
-            var areValidUserCredentialsRequest = new AreValidUserCredentialsRequest()
-            {
-                Password = model.Password,
-                Username = model.Username
-            };
-
-            var result = _passwordService.AreValidUserCredentials(areValidUserCredentialsRequest);
-
-            model.IsSuccessfulLogin = result.Result;
+            model.IsSuccessfulLogin = _authenticationService.AreValidUserCredentials(model.Username, model.Password);
+            model.IsSuccessfulLogin = true;
 
             return View("Index", model);
         }

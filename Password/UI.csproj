@@ -194,6 +194,7 @@
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Exception\ExceptionHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -304,9 +305,9 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Password.Application\Application.csproj">
-      <Project>{E769B14A-E095-4A0C-AF4F-E6490451CF61}</Project>
-      <Name>Application</Name>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{62D705F0-F29F-4B55-A88A-571C70637522}</Project>
+      <Name>Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Password.Infrastructure\Infrastructure.csproj">
       <Project>{24426357-2557-4F5A-83BE-DAC0A7ABF7EB}</Project>

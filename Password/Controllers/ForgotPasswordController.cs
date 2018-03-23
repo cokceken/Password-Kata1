@@ -1,17 +1,18 @@
 ﻿using System.Web.Mvc;
-using Password.Application;
-using Password.Application.DTO.Request;
+using Password.Domain.Contract.AuthenticationContract;
 using Password.UI.Models;
 
 namespace Password.UI.Controllers
 {
     public class ForgotPasswordController : Controller
     {
-        private readonly IPasswordService _passwordService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public ForgotPasswordController(IPasswordService passwordService)
+        public ForgotPasswordController(IAuthenticationService authenticationService)
         {
-            _passwordService = passwordService;
+            ViewBag.Message = "Forgot Password Page";
+
+            _authenticationService = authenticationService;
         }
 
         public ActionResult Index()
@@ -22,12 +23,8 @@ namespace Password.UI.Controllers
         [HttpPost]
         public ActionResult SendResetEmail(ForgotPasswordModel model)
         {
-            var result = _passwordService.SendResetEmail(new SendResetEmailRequest()
-            {
-                EmailAddress = model.Email
-            });
-
-            model.IsSuccessfulMail = result.Result;
+            _authenticationService.SendResetEmail(model.Email);
+            model.IsSuccessfulMail = true;
 
             return View("Index", model);
         }

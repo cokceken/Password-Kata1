@@ -8,6 +8,7 @@ namespace Password.UI.Models
         [DisplayName("Email")]
         [Required]
         public string Email { get; set; }
-        public bool? IsSuccessfulMail { get; set; }
+
+        public bool IsSuccessfulMail { get; set; }
     }
 }

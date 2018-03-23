@@ -1,17 +1,18 @@
 ﻿using System.Web.Mvc;
-using Password.Application;
-using Password.Application.DTO.Request;
+using Password.Domain.Contract.AuthenticationContract;
 using Password.UI.Models;
 
 namespace Password.UI.Controllers
 {
     public class ChangePasswordController : Controller
     {
-        private readonly IPasswordService _passwordService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public ChangePasswordController(IPasswordService passwordService)
+        public ChangePasswordController(IAuthenticationService authenticationService)
         {
-            _passwordService = passwordService;
+            ViewBag.Message = "Change Password Page";
+
+            _authenticationService = authenticationService;
         }
 
         public ActionResult Index()
@@ -25,6 +26,7 @@ namespace Password.UI.Controllers
             {
                 Token = token,
                 UserId = userId,
+                IsSuccessfulChangePassword = null
             };
 
             return View("Index", model);
@@ -33,14 +35,8 @@ namespace Password.UI.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
-            var result = _passwordService.ChangePassword(new ChangePasswordRequest()
-            {
-                Token = model.Token,
-                UserId = model.UserId,
-                NewPassword = model.NewPassword
-            });
-
-            model.IsSuccessfulChangePassword = result.Result;
+            _authenticationService.ChangePassword(model.UserId, model.Token, model.NewPassword);
+            model.IsSuccessfulChangePassword = true;
 
             return View("Index", model);
         }

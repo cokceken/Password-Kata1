@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Password.Domain.Contract.RepositoryContract;
 using Password.Domain.Model;
-using Password.Repository.Contract;
 using Password.Repository.NHibernate;
 
 namespace Password.Repository.Repository
