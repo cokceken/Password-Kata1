@@ -1,0 +1,46 @@
+﻿@model Password.UI.Models.UserCredentialModel
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model?.IsSuccessfulLogin != null)
+{
+    if (Model.IsSuccessfulLogin.Value)
+    {
+        <h1>Successful login</h1>
+    }
+    else
+    {
+        <h1>Unsuccessful login</h1>
+    }
+}
+
+@using (Html.BeginForm("Login", "Home"))
+{
+    <fieldset>
+        <legend>Simple login</legend>
+        <div>
+            @Html.LabelFor(x => x.Username)
+        </div>
+        <div>
+            @Html.EditorFor(x => x.Username)
+            @Html.ValidationMessageFor(x => x.Username)
+        </div>
+
+        <div>
+            @Html.LabelFor(x => x.Password)
+        </div>
+        <div>
+            @Html.EditorFor(x => x.Password)
+            @Html.ValidationMessageFor(x => x.Password)
+        </div>
+        <p>
+            <input type="submit" value="Login" />
+        </p>
+    </fieldset>
+}
+
+<p>
+    @Html.ActionLink("Forgot Password", "Index", "ForgotPassword")
+</p>

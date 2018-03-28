@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Password.Domain.Contract;
 using Password.UI.Container;
+using Password.UI.Exception;
 
 namespace Password.UI
 {
@@ -17,7 +19,7 @@ namespace Password.UI
             //HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
 
             IocContainer.Setup();
-            //GlobalFilters.Filters.Add(new ExceptionHandler(DependencyResolver.Current.GetService<ILogger>()));
+            GlobalFilters.Filters.Add(new ExceptionHandler(IocContainer.Get().Resolve<ILogger>()));
         }
     }
 }

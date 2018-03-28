@@ -1,5 +1,8 @@
 ﻿using System.Web.Mvc;
+using System.Web.Routing;
 using Password.Domain.Contract;
+using Password.Domain.Contract.Enum;
+using Password.Domain.Model.Exception;
 
 namespace Password.UI.Exception
 {
@@ -21,24 +24,25 @@ namespace Password.UI.Exception
 
             var e = filterContext.Exception;
 
-            _logger.Error(e.Message, e);
+            if (e is IUserFriendlyException)
+            {
+                _logger.Log(LogLevel.Info, e.Message);
+            }
+            else
+            {
+                _logger.Log(LogLevel.Error, e.Message, e);
+            }
 
             filterContext.ExceptionHandled = true;
 
             filterContext.HttpContext.Response.Clear();
             filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
 
-            if (filterContext.Controller.ViewData["ErrorMessage"] != null)
+            filterContext.Result = new ViewResult
             {
-                filterContext.Controller.ViewData["ErrorMessage"] = e.Message;
-                filterContext.HttpContext.Response.Redirect("/");
-            }
-            else
-            {
-                filterContext.Controller.ViewData["ErrorMessage"] = e.Message;
-                filterContext.HttpContext.Response.Redirect(filterContext.RequestContext.HttpContext.Request
-                    .RawUrl);
-            }
+                ViewName = "Index",
+                ViewData = {["ErrorMessage"] = e.Message}
+            };
         }
     }
 }

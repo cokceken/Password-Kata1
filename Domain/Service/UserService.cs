@@ -1,6 +1,7 @@
 ﻿using Password.Domain.Contract.UserContract;
 using Password.Domain.Model;
 using Password.Domain.Model.Exception;
+using Password.Domain.UnitOfWork;
 
 namespace Password.Domain.Service
 {
@@ -13,12 +14,13 @@ namespace Password.Domain.Service
             _userDataService = userDataService;
         }
 
+        [UnitOfWork]
         public User GetUserWithUsername(string username)
         {
             var user = _userDataService.GetUserWithUsername(username);
             if (user == null)
             {
-                throw new UserNotFoundException($"Token not found with username: {username}");
+                throw new UserNotFoundException($"User not found with username: {username}");
             }
 
             return user;
@@ -29,7 +31,7 @@ namespace Password.Domain.Service
             var user = _userDataService.GetUserWithEmail(email);
             if (user == null)
             {
-                throw new UserNotFoundException($"Token not found with email: {email}");
+                throw new UserNotFoundException($"User not found with email: {email}");
             }
 
             return user;

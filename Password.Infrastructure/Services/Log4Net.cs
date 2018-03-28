@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using log4net;
 using Password.Domain.Contract;
+using Password.Domain.Contract.Enum;
 
 namespace Password.Infrastructure.Services
 {
@@ -10,35 +12,37 @@ namespace Password.Infrastructure.Services
 
         public Log4Net()
         {
-            Name = "log4net";
+            log4net.Config.XmlConfigurator.ConfigureAndWatch(new FileInfo(Path.Combine(
+                AppDomain.CurrentDomain.RelativeSearchPath ?? AppDomain.CurrentDomain.BaseDirectory,
+                "log4net.config")));
+
             _log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         }
 
-        public string Name { get; }
+        public string Name { get; } = "log4net";
 
-        public void Debug(string message, Exception exception)
+        public void Log(LogLevel logLevel, string message, Exception exception = null)
         {
-            _log.Debug(message, exception);
-        }
-
-        public void Info(string message, Exception exception)
-        {
-            _log.Info(message, exception);
-        }
-
-        public void Warn(string message, Exception exception)
-        {
-            _log.Warn(message, exception);
-        }
-
-        public void Error(string message, Exception exception)
-        {
-            _log.Error(message, exception);
-        }
-
-        public void Fatal(string message, Exception exception)
-        {
-            _log.Fatal(message, exception);
+            switch (logLevel)
+            {
+                case LogLevel.Info:
+                    _log.Info(message, exception);
+                    break;
+                case LogLevel.Debug:
+                    _log.Debug(message, exception);
+                    break;
+                case LogLevel.Warn:
+                    _log.Warn(message, exception);
+                    break;
+                case LogLevel.Error:
+                    _log.Error(message, exception);
+                    break;
+                case LogLevel.Fatal:
+                    _log.Fatal(message, exception);
+                    break;
+                default:
+                    throw new NotSupportedException($"{Name} does not support log level:{logLevel}");
+            }
         }
     }
 }

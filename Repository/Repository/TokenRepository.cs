@@ -2,7 +2,6 @@
 using NHibernate;
 using Password.Domain.Contract.RepositoryContract;
 using Password.Domain.Model;
-using Password.Repository.NHibernate;
 
 namespace Password.Repository.Repository
 {
@@ -10,24 +9,18 @@ namespace Password.Repository.Repository
     {
         public Token GetByValue(string value)
         {
-            using (var session = NHibernateHelper.OpenSession())
-            {
-                var result = session.Query<Token>().FirstOrDefault(x => x.Value.Equals(value));
-                NHibernateUtil.Initialize(result?.User);
+            var result = Session.Query<Token>().FirstOrDefault(x => x.Value.Equals(value));
+            NHibernateUtil.Initialize(result?.User);
 
-                return result;
-            }
+            return result;
         }
 
         public Token GetByUserId(int userId)
         {
-            using (var session = NHibernateHelper.OpenSession())
-            {
-                var result = session.Query<Token>().FirstOrDefault(x => x.User.Id == userId);
-                NHibernateUtil.Initialize(result?.User);
+            var result = Session.Query<Token>().FirstOrDefault(x => x.User.Id == userId);
+            NHibernateUtil.Initialize(result?.User);
 
-                return result;
-            }
+            return result;
         }
     }
 }

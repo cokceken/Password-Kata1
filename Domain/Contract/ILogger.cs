@@ -1,4 +1,5 @@
 ﻿using System;
+using Password.Domain.Contract.Enum;
 
 namespace Password.Domain.Contract
 {
@@ -6,14 +7,6 @@ namespace Password.Domain.Contract
     {
         string Name { get; }
 
-        void Debug(string message, Exception exception = null);
-
-        void Info(string message, Exception exception = null);
-
-        void Warn(string message, Exception exception = null);
-
-        void Error(string message, Exception exception = null);
-
-        void Fatal(string message, Exception exception = null);
+        void Log(LogLevel logLevel, string message, Exception exception = null);
     }
 }

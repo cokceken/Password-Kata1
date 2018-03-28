@@ -1,8 +1,10 @@
 ﻿using System;
 using Password.Domain.Contract;
 using Password.Domain.Contract.AuthenticationContract;
+using Password.Domain.Contract.Enum;
 using Password.Domain.Contract.TokenContract;
 using Password.Domain.Contract.UserContract;
+using Password.Domain.Model;
 using Password.Domain.Model.Exception;
 
 namespace Password.Domain.Service
@@ -27,34 +29,34 @@ namespace Password.Domain.Service
 
         public bool AreValidUserCredentials(string username, string password)
         {
+            _logger.Log(LogLevel.Debug, $"Login attempt with username:{username}, password:{password}");
+
             var userCredential = _userService.GetUserWithUsername(username);
 
-            if (userCredential == null)
-            {
-                return false;
-            }
-
             var hashedPassword = _hashService.Hash(SaltPassword(password, userCredential.PasswordSalt));
-            return userCredential.Password.Equals(hashedPassword);
+            if (!userCredential.Password.Equals(hashedPassword))
+                throw new CredentialMismatchException("Wrong password");
+
+            return true;
         }
 
         public void SendResetEmail(string email)
         {
             var user = _userService.GetUserWithEmail(email);
-            var passwordToken = _tokenService.GenerateToken(user.Id);
+            var token = _tokenService.GenerateToken(user.Id);
 
             try
             {
-                var existingToken = _tokenService.GetTokenByUserId(passwordToken.User.Id);
+                var existingToken = _tokenService.GetTokenByUserId(token.User.Id);
                 _tokenService.DeleteToken(existingToken);
             }
             catch (TokenNotFoundException e)
             {
-                _logger.Debug($"Token not found for userId: {passwordToken.User.Id}", e);
+                _logger.Log(LogLevel.Debug, $"Token not found for userId: {token.User.Id}", e);
             }
 
-            _tokenService.InsertToken(passwordToken);
-            _emailService.Send(passwordToken.ToString(), user.Email);
+            _tokenService.InsertToken(token);
+            _emailService.Send(GenerateUrlFromToken(token), user.Email);
         }
 
         public void ChangePassword(int userId, string token, string newPassword)
@@ -78,9 +80,14 @@ namespace Password.Domain.Service
             _userService.UpdateUser(user);
         }
 
-        private string SaltPassword(string password, string salt)
+        public string SaltPassword(string password, string salt)
         {
             return password + salt;
+        }
+
+        public string GenerateUrlFromToken(Token token)
+        {
+            return $"http://localhost:56120/ChangePassword/Load?token={token.Value}&userId={token.User.Id}";
         }
     }
 }

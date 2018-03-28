@@ -2,7 +2,7 @@
 
 namespace Password.Domain.Model.Exception
 {
-    public class UserNotFoundException : System.Exception
+    public class UserNotFoundException : System.Exception , IUserFriendlyException
     {
         public UserNotFoundException()
         {

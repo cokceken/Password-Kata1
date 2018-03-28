@@ -44,17 +44,22 @@
     <Compile Include="Contract\IHashService.cs" />
     <Compile Include="Contract\AuthenticationContract\IAuthenticationService.cs" />
     <Compile Include="Contract\ILogger.cs" />
+    <Compile Include="Contract\Enum\LogLevel.cs" />
     <Compile Include="Contract\RepositoryContract\IRepository.cs" />
     <Compile Include="Contract\RepositoryContract\ITokenRepository.cs" />
+    <Compile Include="Contract\RepositoryContract\IUnitOfWork.cs" />
     <Compile Include="Contract\RepositoryContract\IUserRepository.cs" />
     <Compile Include="Contract\TokenContract\ITokenGenerator.cs" />
     <Compile Include="Contract\TokenContract\ITokenDataService.cs" />
     <Compile Include="Contract\TokenContract\ITokenService.cs" />
     <Compile Include="Contract\UserContract\IUserDataService.cs" />
     <Compile Include="Contract\UserContract\IUserService.cs" />
+    <Compile Include="Model\Exception\IUserFriendlyException.cs" />
     <Compile Include="Model\Exception\TokenNotFoundException.cs" />
     <Compile Include="Model\Exception\UserNotFoundException.cs" />
     <Compile Include="Model\Exception\InvalidTokenException.cs" />
+    <Compile Include="Model\Exception\CredentialMismatchException.cs" />
+    <Compile Include="Service\TokenGenerator.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Token.cs" />
@@ -62,6 +67,7 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Service\AuthenticationService.cs" />
     <Compile Include="Service\TokenService.cs" />
+    <Compile Include="UnitOfWork\UnitOfWorkAttribute.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

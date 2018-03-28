@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\AuthenticationServiceTest.cs" />
+    <Compile Include="Domain\TokenGeneratorTest.cs" />
     <Compile Include="Domain\TokenServiceTest.cs" />
     <Compile Include="Domain\UserServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

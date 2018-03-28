@@ -48,7 +48,8 @@ namespace Password.Tests.Domain
         }
 
         [TestMethod]
-        public void AreValidUserCredentialsReturnFalseWithUncorrectDate()
+        [ExpectedException(typeof(CredentialMismatchException))]
+        public void AreValidUserCredentialsThrowsCredentialMismatchExceptionWithUncorrectDate()
         {
             _userServiceMock.Setup(x => x.GetUserWithUsername(It.IsAny<string>())).Returns(new User()
             {
@@ -56,9 +57,7 @@ namespace Password.Tests.Domain
             });
             _hashServiceMock.Setup(x => x.Hash(It.IsAny<string>())).Returns("notHashed");
 
-            var result = _cut.AreValidUserCredentials("username", "password");
-
-            Assert.IsFalse(result);
+            _cut.AreValidUserCredentials("username", "password");
         }
 
         [TestMethod]
@@ -113,6 +112,24 @@ namespace Password.Tests.Domain
             _cut.ChangePassword(1, "token", "newPassword");
 
             _userServiceMock.Verify(x => x.UpdateUser(It.IsAny<User>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void SaltPasswordAddsStrings()
+        {
+            Assert.Equals(_cut.SaltPassword("password", "salt"), "passwordsalt");
+        }
+
+        [TestMethod]
+        public void GenerateUrlFromTokenGeneratesUrlToChangePasswordPage()
+        {
+            Assert.Equals(_cut.GenerateUrlFromToken(new Token()
+            {
+                Id = 0,
+                User = new User() {Id = 1},
+                ExpireDateTime = DateTime.MaxValue,
+                Value = "tokenValue"
+            }), "http://localhost:56120/ChangePassword/Load?token=tokenValue&userId=1");
         }
     }
 }

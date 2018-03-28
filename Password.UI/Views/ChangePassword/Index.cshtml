@@ -1,0 +1,39 @@
+﻿@model Password.UI.Models.ChangePasswordModel
+
+@{
+    ViewBag.Title = "Change Password";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model?.IsSuccessfulChangePassword != null)
+{
+    if (Model.IsSuccessfulChangePassword.Value)
+    {
+        <h1>Successful password change</h1>
+    }
+    else
+    {
+        <h1>Unsuccessful password change</h1>
+    }
+}
+
+@using (Html.BeginForm("ChangePassword", "ChangePassword"))
+{
+    @Html.HiddenFor(x => x.UserId)
+    @Html.HiddenFor(x => x.Token)
+
+    <fieldset>
+        <legend>Change password</legend>
+        <div>
+            @Html.LabelFor(x => x.NewPassword)
+        </div>
+        <div>
+            @Html.EditorFor(x => x.NewPassword)
+            @Html.ValidationMessageFor(x => x.NewPassword)
+        </div>
+
+        <p>
+            <input type="submit" value="Change Password" />
+        </p>
+    </fieldset>
+}

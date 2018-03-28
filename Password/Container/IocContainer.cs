@@ -15,5 +15,7 @@ namespace Password.UI.Container
             var controllerFactory = new WindsorControllerFactory(_container.Kernel);
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);
         }
+
+        public static IWindsorContainer Get() => _container;
     }
 }
