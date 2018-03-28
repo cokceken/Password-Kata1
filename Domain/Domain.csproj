@@ -47,7 +47,7 @@
     <Compile Include="Contract\Enum\LogLevel.cs" />
     <Compile Include="Contract\RepositoryContract\IRepository.cs" />
     <Compile Include="Contract\RepositoryContract\ITokenRepository.cs" />
-    <Compile Include="Contract\RepositoryContract\IUnitOfWork.cs" />
+    <Compile Include="Contract\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Contract\RepositoryContract\IUserRepository.cs" />
     <Compile Include="Contract\TokenContract\ITokenGenerator.cs" />
     <Compile Include="Contract\TokenContract\ITokenDataService.cs" />

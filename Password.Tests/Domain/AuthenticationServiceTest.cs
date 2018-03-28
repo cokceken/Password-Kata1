@@ -117,13 +117,13 @@ namespace Password.Tests.Domain
         [TestMethod]
         public void SaltPasswordAddsStrings()
         {
-            Assert.Equals(_cut.SaltPassword("password", "salt"), "passwordsalt");
+            Assert.AreEqual(_cut.SaltPassword("password", "salt"), "passwordsalt");
         }
 
         [TestMethod]
         public void GenerateUrlFromTokenGeneratesUrlToChangePasswordPage()
         {
-            Assert.Equals(_cut.GenerateUrlFromToken(new Token()
+            Assert.AreEqual(_cut.GenerateUrlFromToken(new Token()
             {
                 Id = 0,
                 User = new User() {Id = 1},
